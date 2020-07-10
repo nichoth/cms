@@ -4,9 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build-css && concurrently --kill-others \"npm run serve\" \"npm run sass-watch\"",
+    "serve": "env $(cat .env | xargs) budo src/index.js:bundle.js --pushstate --dir=public --live -- -t [ babelify --presets [ \"@babel/preset-env\" ] ] -t [ envify --NODE_ENV development ] -dv",
+    "build": "npm run build-js && npm run build-css",
+    "build-js": "browserify -p bundle-collapser/plugin src/index.js -t [ envify --NODE_ENV production ] -t [ babelify --presets [ \"@babel/preset-env\" ] ] -g unassertify -g uglifyify | uglifyjs -mc > public/bundle.js",
+    "test": "tape test/{**/*,*}.js",
     "build-css": "node-sass --output-style=compressed src/style/main.scss > public/style.css",
-    "sass-watch": "node-sass --watch src/style/main.scss --source-map-embed public/style.css"
+    "sass-watch": "node-sass --watch src/style/main.scss --source-map-embed public/style.css",
+    "preversion": "npm run lint && npm test",
+    "postversion": "git push --no-verify && git push --tags --no-verify",
+    "lint": "eslint . --config .eslintrc"
   },
   "repository": {
     "type": "git",
@@ -22,9 +29,21 @@
   },
   "homepage": "https://github.com/nichoth/cms#readme",
   "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "babelify": "^10.0.0",
     "browserify": "^16.5.1",
     "budo": "^11.6.4",
+    "bundle-collapser": "^1.4.0",
+    "concurrently": "^5.2.0",
+    "envify": "^4.1.0",
+    "eslint": "^7.4.0",
+    "eslint-config-minlint": "^2.0.0",
+    "husky": "^4.2.5",
     "node-sass": "^4.14.1",
-    "tape": "^5.0.1"
+    "tape": "^5.0.1",
+    "uglify-js": "^3.10.0",
+    "uglifyify": "^5.0.2",
+    "unassertify": "^2.1.1"
   }
 }
