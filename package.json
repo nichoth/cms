@@ -18,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/nichoth/cms/issues"
   },
-  "homepage": "https://github.com/nichoth/cms#readme"
+  "homepage": "https://github.com/nichoth/cms#readme",
+  "devDependencies": {
+    "browserify": "^16.5.1",
+    "budo": "^11.6.4",
+    "node-sass": "^4.14.1",
+    "tape": "^5.0.1"
+  }
 }
