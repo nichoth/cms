@@ -19,7 +19,7 @@
 
 ## yaml
 [yaml](https://www.npmjs.com/package/yaml)
-
+[config.js](https://github.com/netlify/netlify-cms/blob/af7bbbd9a93c5f478dd93fdedeaef3b23c45ee1f/packages/netlify-cms-core/src/actions/config.js)
 
 
 
