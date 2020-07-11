@@ -1,5 +1,8 @@
 {
-    "extends": ["minlint"],
+    "extends": [
+        "minlint",
+        "plugin:react-hooks/recommended"
+    ],
     "plugins": [
         "react"
     ],
